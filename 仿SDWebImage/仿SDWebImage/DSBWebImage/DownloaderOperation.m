@@ -27,6 +27,7 @@
 
 @implementation DownloaderOperation
 
+// 实现创建操作对象的类方法 : 这个方法是先于main方法调用的
 + (instancetype)downloaderOperationWithURLString:(NSString *)URLString successBlock:(void (^)(UIImage *))successBlock
 {
     DownloaderOperation *op = [[DownloaderOperation alloc] init];
@@ -44,23 +45,20 @@
 {
     NSLog(@"传入 %@",self.URLString);
     
+    // 模拟网络延迟
+    [NSThread sleepForTimeInterval:1.0];
+    
     // 异步下载
     NSURL *URL = [NSURL URLWithString:self.URLString];
     NSData *data = [NSData dataWithContentsOfURL:URL];
     UIImage *image = [UIImage imageWithData:data];
     
-    // 断言 : 保证某一个条件一定是满足的;如果不满足,就直接崩溃,并且提供崩溃的自定义的信息
-    // 提示: 只在开发阶段有效;APP上线之后,就无效了
+    // 断言 : 保证某一个条件一定是满足的;如果不满足,就直接崩溃,并且提供崩溃的自定义的信息;只在开发阶段有效;APP上线之后,就无效了
     NSAssert(self.successBlock != nil, @"图片下载完成的回调不能为空!");
     
-    // 图片下载完成之后,需要把图片传递到VC
-//    if (self.successBlock != nil) {
-        // 回到主线程,回调VC传入的代码块;
-        // 提示 : block 和 代理 和 通知 ,在哪个线程回调block/发送代理消息/发送通知,那么就在哪个线程执行相关方法
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.successBlock(image);
-        }];
-//    }
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.successBlock(image);
+    }];
 }
 
 @end
