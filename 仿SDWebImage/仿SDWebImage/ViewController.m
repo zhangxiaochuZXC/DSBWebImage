@@ -18,6 +18,10 @@
 /// 数据源数组
 @property (nonatomic, strong) NSArray *appList;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+/// 操作缓存池
+@property (nonatomic, strong) NSMutableDictionary *OPsCache;
+/// 保存上一次的图片地址
+@property (nonatomic, copy) NSString *lastURLString;
 
 @end
 
@@ -28,6 +32,8 @@
     
     // 实例化全局队列
     self.queue = [[NSOperationQueue alloc] init];
+    /// 实例化操作缓存池
+    self.OPsCache = [[NSMutableDictionary alloc] init];
     
     // 测试框架 : 当appList有数据之后,我就点击屏幕随机下载图片
     [self loadJSONData];
@@ -40,11 +46,27 @@
     // 使用随机数,随机的取出模型
     APPModel *app = self.appList[random];
     
+    // 判断连续两次传入的图片地址是否一样,如果不一样,就把上一次的正在执行的下载操作取消掉
+    if (![app.icon isEqualToString:self.lastURLString] && self.lastURLString != nil) {
+        
+        // 取出上一次的下载操作,调用取消方法
+        // cancel : 仅仅是改变了操作的状态而已(cancelled变为YES),并没有正真的取消
+        [[self.OPsCache objectForKey:self.lastURLString] cancel];
+        // 需要移除取消掉的操作对象
+        [self.OPsCache removeObjectForKey:self.lastURLString];
+    }
+    
+    // 保存上次的图片地址
+    self.lastURLString = app.icon;
+    
     // 创建自定义的操作对象
     DownloaderOperation *op = [DownloaderOperation downloaderOperationWithURLString:app.icon successBlock:^(UIImage *image) {
         // 刷新UI
         self.iconImageView.image = image;
     }];
+    
+    // 把下载操作添加到操作缓存池
+    [self.OPsCache setObject:op forKey:app.icon];
     
     // 把自定义的操作对象添加到队列
     [self.queue addOperation:op];

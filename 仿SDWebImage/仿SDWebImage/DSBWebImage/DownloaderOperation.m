@@ -43,20 +43,44 @@
 /// 重写main方法 : 所有操作的入口 (相当于教室的门)
 - (void)main
 {
+    // 建议不要在main方法的开始位置就判断操作是否被取消;因为很有可能这个判断执行过了,但是取消消息还没有发送过来
+    /*
+    if (self.isCancelled) {
+        NSLog(@"取消 %@",self.URLString);
+        return;
+    }
+     */
+    
     NSLog(@"传入 %@",self.URLString);
     
     // 模拟网络延迟
     [NSThread sleepForTimeInterval:1.0];
+    
+    // 判断当前的下载操作有没有被取消
+    /*
+    if (self.isCancelled) {
+        NSLog(@"取消 %@",self.URLString);
+        return;
+    }
+     */
     
     // 异步下载
     NSURL *URL = [NSURL URLWithString:self.URLString];
     NSData *data = [NSData dataWithContentsOfURL:URL];
     UIImage *image = [UIImage imageWithData:data];
     
+    // 在这儿写是最合适的 : 判断当前的下载操作有没有被取消
+    // 一般要在耗时操作的后面拦截.只需要在回调代码块之前拦截到就可以了
+    if (self.isCancelled) {
+        NSLog(@"取消 %@",self.URLString);
+        return;
+    }
+    
     // 断言 : 保证某一个条件一定是满足的;如果不满足,就直接崩溃,并且提供崩溃的自定义的信息;只在开发阶段有效;APP上线之后,就无效了
     NSAssert(self.successBlock != nil, @"图片下载完成的回调不能为空!");
     
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        NSLog(@"完成 %@",self.URLString);
         self.successBlock(image);
     }];
 }
