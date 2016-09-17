@@ -11,10 +11,14 @@
 
 @interface DownloaderOperation : NSOperation
 
-/// 接收VC传入的图片地址
-@property (nonatomic, copy) NSString *URLString;
-
-/// 接收VC传入的下载完成的代码块
-@property (nonatomic, copy) void(^successBlock)(UIImage *image);
+/**
+ 实例化自定义操作对象的主方法
+ 
+ @param URLString    接收VC传入的图片地址
+ @param successBlock 接收VC传入的下载完成的代码块
+ 
+ @return 返回自定义的操作对象
+ */
++ (instancetype)downloaderOperationWithURLString:(NSString *)URLString successBlock:(void(^)(UIImage *image))successBlock;
 
 @end
