@@ -12,6 +12,7 @@
 #import "YYModel.h"
 #import "APPModel.h"
 #import "DownloaderManager.h"
+#import "UIImageView+DSB.h"
 
 @interface ViewController ()
 
@@ -47,21 +48,8 @@
     // 使用随机数,随机的取出模型
     APPModel *app = self.appList[random];
     
-    // 判断连续两次传入的图片地址是否一样,如果不一样,就把上一次的正在执行的下载操作取消掉
-    if (![app.icon isEqualToString:self.lastURLString] && self.lastURLString != nil) {
-        
-        // 单例接管取消操作
-        [[DownloaderManager sharedManager] cancelDownloadingOperationWithLastURLString:self.lastURLString];
-    }
-    
-    // 保存上次的图片地址
-    self.lastURLString = app.icon;
-    
-    // 单例接管下载操作
-    [[DownloaderManager sharedManager] downloadImageWithURLString:app.icon successBlock:^(UIImage *image) {
-        // 刷新UI
-        self.iconImageView.image = image;
-    }];
+    // 使用分类方法实现图片下载
+    [self.iconImageView DSB_setImageWithURLString:app.icon];
 }
 
 /// 测试框架的 : 加载JSON数据的主方法

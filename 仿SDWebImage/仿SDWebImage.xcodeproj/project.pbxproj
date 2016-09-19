@@ -25,6 +25,7 @@
 		86732DE51D8D571B00BF62E9 /* APPModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86732DE41D8D571B00BF62E9 /* APPModel.m */; };
 		8686995D1D8F90AB0008C9B5 /* DownloaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8686995C1D8F90AB0008C9B5 /* DownloaderManager.m */; };
 		868699601D8FC6CE0008C9B5 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8686995F1D8FC6CE0008C9B5 /* NSString+path.m */; };
+		868699631D8FCD470008C9B5 /* UIImageView+DSB.m in Sources */ = {isa = PBXBuildFile; fileRef = 868699621D8FCD470008C9B5 /* UIImageView+DSB.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,8 @@
 		8686995C1D8F90AB0008C9B5 /* DownloaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderManager.m; sourceTree = "<group>"; };
 		8686995E1D8FC6CE0008C9B5 /* NSString+path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+path.h"; sourceTree = "<group>"; };
 		8686995F1D8FC6CE0008C9B5 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
+		868699611D8FCD470008C9B5 /* UIImageView+DSB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+DSB.h"; sourceTree = "<group>"; };
+		868699621D8FCD470008C9B5 /* UIImageView+DSB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+DSB.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				86732DC31D8D36D100BF62E9 /* DownloaderOperation.m */,
 				8686995B1D8F90AB0008C9B5 /* DownloaderManager.h */,
 				8686995C1D8F90AB0008C9B5 /* DownloaderManager.m */,
+				868699611D8FCD470008C9B5 /* UIImageView+DSB.h */,
+				868699621D8FCD470008C9B5 /* UIImageView+DSB.m */,
 			);
 			path = DSBWebImage;
 			sourceTree = "<group>";
@@ -249,6 +254,7 @@
 				86732DD61D8D56AA00BF62E9 /* AFNetworkReachabilityManager.m in Sources */,
 				868699601D8FC6CE0008C9B5 /* NSString+path.m in Sources */,
 				86732DE11D8D56CD00BF62E9 /* NSObject+YYModel.m in Sources */,
+				868699631D8FCD470008C9B5 /* UIImageView+DSB.m in Sources */,
 				86732DAC1D8D356C00BF62E9 /* main.m in Sources */,
 				8686995D1D8F90AB0008C9B5 /* DownloaderManager.m in Sources */,
 				86732DD81D8D56AA00BF62E9 /* AFURLRequestSerialization.m in Sources */,
