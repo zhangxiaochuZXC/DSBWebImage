@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "YYModel.h"
 #import "APPModel.h"
+#import "DownloaderManager.h"
 
 @interface ViewController ()
 
@@ -59,17 +60,11 @@
     // 保存上次的图片地址
     self.lastURLString = app.icon;
     
-    // 创建自定义的操作对象
-    DownloaderOperation *op = [DownloaderOperation downloaderOperationWithURLString:app.icon successBlock:^(UIImage *image) {
+    // 单例接管下载操作
+    [[DownloaderManager sharedManager] downloadImageWithURLString:app.icon successBlock:^(UIImage *image) {
         // 刷新UI
         self.iconImageView.image = image;
     }];
-    
-    // 把下载操作添加到操作缓存池
-    [self.OPsCache setObject:op forKey:app.icon];
-    
-    // 把自定义的操作对象添加到队列
-    [self.queue addOperation:op];
 }
 
 /// 测试框架的 : 加载JSON数据的主方法

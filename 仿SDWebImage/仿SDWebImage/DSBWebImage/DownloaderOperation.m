@@ -17,10 +17,10 @@
 
 @interface DownloaderOperation ()
 
-/// 接收VC传入的图片地址
+/// 接收单例传入的图片地址
 @property (nonatomic, copy) NSString *URLString;
 
-/// 接收VC传入的下载完成的代码块
+/// 接收单例传入的下载完成的代码块
 @property (nonatomic, copy) void(^successBlock)(UIImage *image);
 
 @end
@@ -32,7 +32,7 @@
 {
     DownloaderOperation *op = [[DownloaderOperation alloc] init];
     
-    // 保存外界传入的数据
+    // 保存单例传入的数据
     op.URLString = URLString;
     op.successBlock = successBlock;
     
@@ -79,8 +79,10 @@
     // 断言 : 保证某一个条件一定是满足的;如果不满足,就直接崩溃,并且提供崩溃的自定义的信息;只在开发阶段有效;APP上线之后,就无效了
     NSAssert(self.successBlock != nil, @"图片下载完成的回调不能为空!");
     
+    // 如果图片下载完成之后,需要回到主线程回调单例传入的代码块
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         NSLog(@"完成 %@",self.URLString);
+        // 回调单例传入的代码块
         self.successBlock(image);
     }];
 }

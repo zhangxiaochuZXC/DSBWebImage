@@ -14,8 +14,8 @@
 /**
  实例化自定义操作对象的主方法
  
- @param URLString    接收VC传入的图片地址
- @param successBlock 接收VC传入的下载完成的代码块
+ @param URLString    接收单例传入的图片地址
+ @param successBlock 接收单例入的下载完成的代码块
  
  @return 返回自定义的操作对象
  */
