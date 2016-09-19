@@ -50,11 +50,8 @@
     // 判断连续两次传入的图片地址是否一样,如果不一样,就把上一次的正在执行的下载操作取消掉
     if (![app.icon isEqualToString:self.lastURLString] && self.lastURLString != nil) {
         
-        // 取出上一次的下载操作,调用取消方法
-        // cancel : 仅仅是改变了操作的状态而已(cancelled变为YES),并没有正真的取消
-        [[self.OPsCache objectForKey:self.lastURLString] cancel];
-        // 需要移除取消掉的操作对象
-        [self.OPsCache removeObjectForKey:self.lastURLString];
+        // 单例接管取消操作
+        [[DownloaderManager sharedManager] cancelDownloadingOperationWithLastURLString:self.lastURLString];
     }
     
     // 保存上次的图片地址

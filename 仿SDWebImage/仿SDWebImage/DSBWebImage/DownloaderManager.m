@@ -69,4 +69,21 @@
     [self.queue addOperation:op];
 }
 
+- (void)cancelDownloadingOperationWithLastURLString:(NSString *)lastURLString
+{
+    DownloaderOperation *op = [self.OPsCache objectForKey:lastURLString];
+    if (op != nil) {
+        [op cancel];
+        [self.OPsCache removeObjectForKey:lastURLString];
+    }
+    
+    /*
+    // 取出上一次的下载操作,调用取消方法
+    // cancel : 仅仅是改变了操作的状态而已(cancelled变为YES),并没有正真的取消
+    [[self.OPsCache objectForKey:lastURLString] cancel];
+    // 需要移除取消掉的操作对象
+    [self.OPsCache removeObjectForKey:lastURLString];
+    */
+}
+
 @end

@@ -22,4 +22,11 @@
  */
 - (void)downloadImageWithURLString:(NSString *)URLString successBlock:(void(^)(UIImage *image))successBlock;
 
+/**
+ 单例取消上一次正在执行的操作的主方法
+ 
+ @param lastURLString 上一次操作对应的图片地址
+ */
+- (void)cancelDownloadingOperationWithLastURLString:(NSString *)lastURLString;
+
 @end
