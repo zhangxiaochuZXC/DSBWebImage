@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSMutableDictionary *OPsCache;
 /// 队列
 @property (nonatomic, strong) NSOperationQueue *queue;
+/// 图片缓存池
+@property (nonatomic, strong) NSMutableDictionary *imagesCache;
 
 @end
 
@@ -36,12 +38,24 @@
     if (self = [super init]) {
         self.OPsCache = [[NSMutableDictionary alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
+        self.imagesCache = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void)downloadImageWithURLString:(NSString *)URLString successBlock:(void (^)(UIImage *))successBlock
 {
+    // 判断有没有缓存
+    if ([self checkCache:URLString]) {
+        // 把缓存的图片取出来回调给VC
+        UIImage *image = [self.imagesCache objectForKey:URLString];
+        if (successBlock) {
+            successBlock(image);
+        }
+        
+        return;
+    }
+    
     // 判断要下载的图片对应的下载操作有没有,如果有,直接返回,不再建立下载操作.反之,就建立下载操作
     if ([self.OPsCache objectForKey:URLString]) {
         return;
@@ -50,9 +64,16 @@
     // 单例定义的代码块 : 传递给自定义操作
     void(^managerBlock)() = ^(UIImage *image) {
         
+        NSLog(@"从网络加载...%@",URLString);
+        
         // 在单例的代码块里面,回调VC传给单例的代码块 : 代码块中回调/调用代码块
         if (successBlock) {
             successBlock(image);
+        }
+        
+        // 把图片缓存到图片缓存池
+        if (image) {
+            [self.imagesCache setObject:image forKey:URLString];
         }
         
         // 图片下载完成只有,移除对应的操作
@@ -67,6 +88,27 @@
     
     // 把自定义的操作对象添加到队列
     [self.queue addOperation:op];
+}
+
+/// 判断有没有缓存的主方法
+- (BOOL)checkCache:(NSString *)URLString
+{
+    // 判断有没有内存缓存
+    if ([self.imagesCache objectForKey:URLString]) {
+        NSLog(@"从内存加载...%@",URLString);
+        return YES;
+    }
+    
+    // 判断有没有沙盒缓存
+    UIImage *cacheImage = [UIImage imageWithContentsOfFile:[URLString appendCaches]];
+    if (cacheImage) {
+        NSLog(@"从沙盒加载...%@",URLString);
+        // 给内存在保存一份
+        [self.imagesCache setObject:cacheImage forKey:URLString];
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (void)cancelDownloadingOperationWithLastURLString:(NSString *)lastURLString

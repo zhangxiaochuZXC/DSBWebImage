@@ -24,6 +24,7 @@
 		86732DE21D8D56CD00BF62E9 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 86732DDF1D8D56CD00BF62E9 /* YYClassInfo.m */; };
 		86732DE51D8D571B00BF62E9 /* APPModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 86732DE41D8D571B00BF62E9 /* APPModel.m */; };
 		8686995D1D8F90AB0008C9B5 /* DownloaderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8686995C1D8F90AB0008C9B5 /* DownloaderManager.m */; };
+		868699601D8FC6CE0008C9B5 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 8686995F1D8FC6CE0008C9B5 /* NSString+path.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,8 @@
 		86732DE41D8D571B00BF62E9 /* APPModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APPModel.m; sourceTree = "<group>"; };
 		8686995B1D8F90AB0008C9B5 /* DownloaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderManager.h; sourceTree = "<group>"; };
 		8686995C1D8F90AB0008C9B5 /* DownloaderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderManager.m; sourceTree = "<group>"; };
+		8686995E1D8FC6CE0008C9B5 /* NSString+path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+path.h"; sourceTree = "<group>"; };
+		8686995F1D8FC6CE0008C9B5 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +125,8 @@
 		86732DC11D8D36A300BF62E9 /* DSBWebImage */ = {
 			isa = PBXGroup;
 			children = (
+				8686995E1D8FC6CE0008C9B5 /* NSString+path.h */,
+				8686995F1D8FC6CE0008C9B5 /* NSString+path.m */,
 				86732DC21D8D36D100BF62E9 /* DownloaderOperation.h */,
 				86732DC31D8D36D100BF62E9 /* DownloaderOperation.m */,
 				8686995B1D8F90AB0008C9B5 /* DownloaderManager.h */,
@@ -242,6 +247,7 @@
 				86732DDA1D8D56AA00BF62E9 /* AFURLSessionManager.m in Sources */,
 				86732DAF1D8D356C00BF62E9 /* AppDelegate.m in Sources */,
 				86732DD61D8D56AA00BF62E9 /* AFNetworkReachabilityManager.m in Sources */,
+				868699601D8FC6CE0008C9B5 /* NSString+path.m in Sources */,
 				86732DE11D8D56CD00BF62E9 /* NSObject+YYModel.m in Sources */,
 				86732DAC1D8D356C00BF62E9 /* main.m in Sources */,
 				8686995D1D8F90AB0008C9B5 /* DownloaderManager.m in Sources */,

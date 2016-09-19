@@ -69,6 +69,11 @@
     NSData *data = [NSData dataWithContentsOfURL:URL];
     UIImage *image = [UIImage imageWithData:data];
     
+    // 实现沙盒缓存
+    if (image) {
+        [data writeToFile:[self.URLString appendCaches] atomically:YES];
+    }
+    
     // 在这儿写是最合适的 : 判断当前的下载操作有没有被取消
     // 一般要在耗时操作的后面拦截.只需要在回调代码块之前拦截到就可以了
     if (self.isCancelled) {
