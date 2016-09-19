@@ -39,8 +39,19 @@
         self.OPsCache = [[NSMutableDictionary alloc] init];
         self.queue = [[NSOperationQueue alloc] init];
         self.imagesCache = [[NSMutableDictionary alloc] init];
+        
+        // 注册内存警告的通知 : 一旦第一次使用单例,就会注册好这个通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clearMemeoy) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
     }
     return self;
+}
+
+/// 内存警告的主方法
+- (void)clearMemeoy
+{
+    [self.imagesCache removeAllObjects];
+    [self.OPsCache removeAllObjects];
+    [self.queue cancelAllOperations];
 }
 
 - (void)downloadImageWithURLString:(NSString *)URLString successBlock:(void (^)(UIImage *))successBlock

@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(xxoo) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
     // 实例化全局队列
     self.queue = [[NSOperationQueue alloc] init];
     /// 实例化操作缓存池
@@ -39,6 +41,12 @@
     
     // 测试框架 : 当appList有数据之后,我就点击屏幕随机下载图片
     [self loadJSONData];
+}
+
+// 测试
+- (void)xxoo
+{
+    NSLog(@"%s",__func__);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
